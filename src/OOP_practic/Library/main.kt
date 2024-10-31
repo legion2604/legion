@@ -88,4 +88,5 @@ fun main() {
     else if (s==3) println(RED+"Эта страница недоступна"+ RESET)
         else break
     }
+    println("hello")
 }
