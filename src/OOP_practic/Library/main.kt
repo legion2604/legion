@@ -9,21 +9,21 @@ const val BLUE = "\u001B[34m"         // Синий
 val scanner = Scanner(System.`in`)
 fun main() {
     var books = mutableListOf(
-        listOf("1", "Сказать жизни Да!", "Виктор Франкл", "1946", "мотивация"),
-        listOf("2", "Жизнь без границ", "Ник Вуйчич", "2009", "мотивация"),
-        listOf("3", "Идеальный шторм", "Екатерина Сигитова", "2021", "мотивация"),
-        listOf("4", "Не бойся действовать", "Шерил Сэндберг", "2023", "мотивация"),
-        listOf("5", "Когда жизнь сбивает с ног", "Расс Хэррис", "2023", "мотивация"),
-        listOf("6", "Head First. Kotlin", "Дон Гриффитс", "2019", "программирование"),
-        listOf("7", "Kotlin. Программирование для профессионалов", "Джош Скин", "2019", "программирование"),
-        listOf("6", "Волшебство Kotlin", "Пьер-Ив Симон", "2020", "программирование"),
-        listOf("9", "Kotlin в действии", "Дмитрий Жемеров", "2017", "программирование"),
-        listOf("10", "Котлин. Программирование на примерах", "Ияну Аделекан", "2020", "программирование"),
-        listOf("11", "Путь к финансовой свободе", "Бодо Шефер", "1997", "бизнес"),
-        listOf("12", "Самый богатый человек в Вавилоне", "Джордж Клейсон", "1920", "бизнес"),
-        listOf("13", "Уоррен Баффет. Как 5 долларов превратить в 50 миллиардов", "Роберт Хагстром", "1994", "бизнес"),
-        listOf("14", "Думай и богатей. Золотые правила успеха", "Наполеон Хилл", "1937", "бизнес"),
-        listOf("15", "Богатый папа, бедный папа", "Роберт Кийосаки", "1997", "бизнес")
+        mutableListOf("1", "Сказать жизни Да!", "Виктор Франкл", "1946", "мотивация","1"),
+        mutableListOf("2", "Жизнь без границ", "Ник Вуйчич", "2009", "мотивация","2"),
+        mutableListOf("3", "Идеальный шторм", "Екатерина Сигитова", "2021", "мотивация","3"),
+        mutableListOf("4", "Не бойся действовать", "Шерил Сэндберг", "2023", "мотивация","9"),
+        mutableListOf("5", "Когда жизнь сбивает с ног", "Расс Хэррис", "2023", "мотивация"),
+        mutableListOf("6", "Head First. Kotlin", "Дон Гриффитс", "2019", "программирование","12"),
+        mutableListOf("7", "Kotlin. Программирование для профессионалов", "Джош Скин", "2019", "программирование","1"),
+        mutableListOf("6", "Волшебство Kotlin", "Пьер-Ив Симон", "2020", "программирование","2"),
+        mutableListOf("9", "Kotlin в действии", "Дмитрий Жемеров", "2017", "программирование","2"),
+        mutableListOf("10", "Котлин. Программирование на примерах", "Ияну Аделекан", "2020", "программирование","1"),
+        mutableListOf("11", "Путь к финансовой свободе", "Бодо Шефер", "1997", "бизнес","1"),
+        mutableListOf("12", "Самый богатый человек в Вавилоне", "Джордж Клейсон", "1920", "бизнес","3"),
+        mutableListOf("13", "Уоррен Баффет. Как 5 долларов превратить в 50 миллиардов", "Роберт Хагстром", "1994", "бизнес","4"),
+        mutableListOf("14", "Думай и богатей. Золотые правила успеха", "Наполеон Хилл", "1937", "бизнес","5"),
+        mutableListOf("15", "Богатый папа, бедный папа", "Роберт Кийосаки", "1997", "бизнес","11")
     )
     val getBook=getBook(books)
     while (true) {
@@ -47,7 +47,7 @@ fun main() {
                         println(BLUE+"Введите имя книги"+ RESET)
                         val usBook = readln()
 
-                        if (getBook.searchBookWithName(usBook)) {
+                        if (getBook.searchBook(usBook)) {
                             books = getBook.removeBook(usBook)
                             println(RED+"Спосибо что приобрели нашу книгу!!!"+ RESET)
                             break@outer1
@@ -61,17 +61,15 @@ fun main() {
                 }
                 else if (s1 == 2) {
                     while (true) {
-                        println(GREEN+"Нажмите 1 если хотите получить информацию о книге по имени")
-                        println("Нажмите 2 если хотите получить информацию о книге по котегории")
-                        println("Нажмите 3 если хотите получить информацию о книге по автору")
-                        println("Нажмите 4 чтобы выйти в меню"+ RESET)
+                        println(GREEN+"Нажмите 1 если хотите получить информацию о книге по имени, автору, год выпуска или по котегории")
+                        println("Нажмите 2 чтобы выйти в меню"+ RESET)
                         val inforBook = scanner.nextInt()
                         if (inforBook == 1) {
                             println("Введите имя книги")
                             val getInfoWithName= readln()
                             while (true){
-                                if (getBook.searchBookWithName(getInfoWithName)){
-                                    getBook.getBookWithName(getInfoWithName)
+                                if (getBook.searchBook(getInfoWithName)){
+                                    getBook.getBook(getInfoWithName)
                                     break@outer1
                                 }else{
                                     println(RED+"У нас нету этой книги"+ RESET)
@@ -80,39 +78,7 @@ fun main() {
                                     if (scanner.nextInt() == 2) break
                                 }
                             }
-                        }
-                        else if (inforBook == 2) {
-                            println("Введите котегорию книги")
-                            val getInfoWithKategory= readln()
-                            while (true){
-                                if (getBook.searchBookWithKategory(getInfoWithKategory)){
-                                    getBook.getBookWithKategory(getInfoWithKategory)
-                                    break@outer1
-                                }else{
-                                    println(RED+"У нас нету такой книги с таким котегориям"+ RESET)
-                                    println(GREEN+"Нажмите 1 чтобы получить информацию о других книгах по котегории")
-                                    println("Нажмите 2 выйти"+ RESET)
-                                    if (scanner.nextInt() == 2) break
-                                }
-                            }
-                        }
-                        else if (inforBook == 3) {
-                            println("Введите автор книги")
-                            val getInfoWithAuthor= readln()
-                            while (true){
-                                if (getBook.searchBookWithAuthor(getInfoWithAuthor)){
-                                    getBook.getBookWithAuthor(getInfoWithAuthor)
-                                    break@outer1
-                                }else{
-                                    println(RED+"У нас нету такой книги с таким автором"+ RESET)
-                                    println(GREEN+"Нажмите 1 чтобы получить информацию о других книгах по автору")
-                                println("Нажмите 2 выйти"+ RESET)
-                                    if (scanner.nextInt() == 2) break
-                                }
-                            }
-                        }
-                        else break@outer1
-                        getBook.design()
+                        } else break@outer1
                     }
                 }
                 else if (s1 == 3) break
@@ -121,6 +87,5 @@ fun main() {
     else if (s==2) println(RED+"Эта страница недоступна"+ RESET)
     else if (s==3) println(RED+"Эта страница недоступна"+ RESET)
         else break
-        getBook.design()
     }
 }

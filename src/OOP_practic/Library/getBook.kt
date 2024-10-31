@@ -1,25 +1,15 @@
 package OOP_practic.Library
 
-import javax.naming.directory.SearchControls
-
-class getBook(val book: MutableList<List<String>>) {
-
-    fun getBookWithKategory(kategory: String) {
+class getBook(val book: MutableList<MutableList<String>>) : menu {
+    override fun getBooks() {
         for (i in book) {
-            if (i[4] == (kategory.toString())) {
-                println("ID: " + i[0])
-                println("Название: " + i[1])
-                println("Автор: " + i[2])
-                println("Год выпуска: " + i[3])
-                println()
-            }
+            println(i[1])
         }
     }
 
-    fun getBookWithName(name: String) {
+    override fun getBook(s: String) {
         for (i in book) {
-            if (i[1] == (name)) {
-                println("ID: " + i[0])
+            if (i.contains(s)) {
                 println("Название: " + i[1])
                 println("Автор: " + i[2])
                 println("Год выпуска: " + i[3])
@@ -27,10 +17,9 @@ class getBook(val book: MutableList<List<String>>) {
         }
     }
 
-    fun getBookWithAuthor(name: String) {
+    override fun getBookWithAuthor(s: String) {
         for (i in book) {
-            if (i[2] == (name)) {
-                println("ID: " + i[0])
+            if (i[2] == s) {
                 println("Название: " + i[1])
                 println("Автор: " + i[2])
                 println("Год выпуска: " + i[3])
@@ -38,10 +27,9 @@ class getBook(val book: MutableList<List<String>>) {
         }
     }
 
-    fun getBookWithYear(date: Int) {
+    override fun getBookWithKategory(s: String) {
         for (i in book) {
-            if (i[3] == date.toString()) {
-                println("ID: " + i[0])
+            if (i[4] == s) {
                 println("Название: " + i[1])
                 println("Автор: " + i[2])
                 println("Год выпуска: " + i[3])
@@ -49,55 +37,28 @@ class getBook(val book: MutableList<List<String>>) {
         }
     }
 
-    fun getBooks() {
-        var index = 1
+    override fun searchBook(s: String): Boolean {
         for (i in book) {
-            println("$index. " + i[1])
-            index++
+            if (i.contains(s)) {
+                return true
+            }
         }
+        return false
     }
 
-    fun removeBook(name: String): MutableList<List<String>> {
+    override fun removeBook(s: String): MutableList<MutableList<String>> {
         for (i in book) {
-            if (i[1] == name) {
-                book.remove(i)
-                break
+            if (i[1] == s) {
+                if (i[5].toInt() > 0) {
+                    i[5] = (i[5].toInt() - 1).toString()
+                } else {
+                    book.remove(i)
+                }
             }
         }
         return book
     }
 
-    fun searchBookWithName(name: String): Boolean {
-        for (i in book) {
-            if (i[1] == (name)) {
-                return true
-            }
-        }
-        return false
-    }
-
-    fun searchBookWithKategory(kategory: String): Boolean {
-        for (i in book) {
-            if (i[4] == kategory) {
-                return true
-            }
-        }
-        return false
-    }
-
-    fun searchBookWithAuthor(author: String): Boolean {
-        for (i in book) {
-            if (i[2] == author) {
-                return true
-            }
-        }
-        return false
-    }
-
-    fun design() {
-        println("________________________________________")
-        println()
-    }
 
 }
 
