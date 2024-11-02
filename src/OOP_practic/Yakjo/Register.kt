@@ -18,7 +18,7 @@ class Register(var users:MutableList<List<String>>) {
         }
         return ""
     }
-    fun liginContains(login:String):Boolean{
+    fun loginContains(login:String):Boolean{
         for (i in users){
             if (i[1]==login){
                 return false
